@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    // "baseUrl": "./src", // 公共路径
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitThis": true,
+    "outDir": "./build",
+    "types": [
+      "node"
+    ],
+    // "sourceMap": true, 转成 js 代码后不需要 xxx.js.map 文件
+    // "declaration": true, // 是否生成声明文件
+    // "declarationDir": "build/type",// 声明文件打包的位置
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
