@@ -12,6 +12,7 @@ async function verifyUser(ctx: ParameterizedContext, next: Next) {
     return
   }
 
+  // 下一个中间件要有结果才会执行 await 下面的代码
   await next()
 }
 

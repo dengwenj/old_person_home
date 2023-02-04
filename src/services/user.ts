@@ -1,16 +1,35 @@
-import connection from '../dataBase'
+import mysqlSqlEncapsulation from '../utils/mysql'
 
-interface IUser {
-  username: string
-  password: number
-}
+import type { IUserInfo } from '../global/types'
+
+const { 
+  actionAdd, 
+  actionUpdate,
+  actionDelete
+} = mysqlSqlEncapsulation
 
 class UserServices {
-  async create(user: IUser) {
-    const { username, password } = user
+  // 新增
+  create({ username, password }: IUserInfo) {
+    const res = actionAdd('user', {
+      username,
+      password
+    })
+    return res
+  }
 
-    const statement = 'INSERT INTO USER (username, password) VALUES (?, ?)'
-    const res = await connection.execute(statement, [username, password])
+  // 修改
+  updateUser({ id, username }: IUserInfo) {
+    const res = actionUpdate('user', {
+      username
+    }, ['id', id!])
+
+    return res
+  }
+
+  // 删除
+  deleteUser({ id }: { id: number }) {
+    const res = actionDelete('user', ['id', id])
     return res
   }
 }

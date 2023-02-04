@@ -7,9 +7,14 @@ import { userController } from '../controller'
 import { userMiddleware } from '../middleware'
 
 const userRouter = new KoaRouter({ prefix: '/user' })
-const { create } = userController
+const { createUser, updateUser, deleteUser } = userController
 const { verifyUser } = userMiddleware
 
-userRouter.post('/register', verifyUser, create)
+// 新增
+userRouter.post('/register', verifyUser, createUser)
+// 编辑
+userRouter.post('/update', updateUser)
+// 删除
+userRouter.post('/delete', deleteUser)
 
 export default userRouter
