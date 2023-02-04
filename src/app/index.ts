@@ -6,6 +6,8 @@ import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 
 import { userRouter } from '../router'
+import errorHandle from './error_handle'
+
 
 const app = new Koa()
 
@@ -13,5 +15,7 @@ const app = new Koa()
 app.use(bodyparser())
 app.use(userRouter.routes())
 app.use(userRouter.allowedMethods())
+
+app.on('error', errorHandle)
 
 export default app

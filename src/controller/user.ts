@@ -2,7 +2,7 @@ import { userServices } from '../services'
 
 import type { Next, ParameterizedContext } from 'koa'
 
-const { create} = userServices
+const { create } = userServices
 
 class UserController {
   async create(ctx: ParameterizedContext, next: Next) {
