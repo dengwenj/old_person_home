@@ -11,7 +11,7 @@ const {
 class UserServices {
   // 新增
   create({ username, password }: IUserInfo) {
-    const res = actionAdd('user', {
+    const res = actionAdd.call(mysqlSqlEncapsulation, 'user', {
       username,
       password
     })
@@ -20,7 +20,7 @@ class UserServices {
 
   // 修改
   updateUser({ id, username }: IUserInfo) {
-    const res = actionUpdate('user', {
+    const res = actionUpdate.call(mysqlSqlEncapsulation, 'user', {
       username
     }, ['id', id!])
 

@@ -11,15 +11,11 @@ class mysqlSqlEncapsulation {
     tableName: string, 
     fieldsAndValue: Record<string, any>
   ) {
-    const fieldsArr = Object.keys(fieldsAndValue)
-    const valuesArr: any[] = []
-    const questionMark: string[] = []
-    for (const key of fieldsArr) {
-      // 有多少个字段就有多少个问号
-      questionMark.push('?')
-      // 获取值
-      valuesArr.push(fieldsAndValue[key])
-    }
+    const { 
+      fieldsArr,
+      questionMark, 
+      valuesArr 
+    } = this.addUpdateCommon(true, fieldsAndValue)
     
     // INSERT INTO user (username,password) VALUES (?,?)
     const statement = `
@@ -42,17 +38,11 @@ class mysqlSqlEncapsulation {
     fieldsAndValue: Record<string, any>,
     whoFieldUpdate?: [string, string | number]
   ) {
-    const fieldsArr = Object.keys(fieldsAndValue)
-    const fieldsAndQuestionMark: string[] = []
-    const valuesArr: any[] = []
-    for (const key of fieldsArr) {
-      fieldsAndQuestionMark.push(`${key} = ?`)
-      valuesArr.push(fieldsAndValue[key])
-    }
+    const { questionMark, valuesArr } = this.addUpdateCommon(false, fieldsAndValue)
 
     // 通过哪个字段去修改  UPDATE user SET username = ? WHERE id = 1
     const statement = `
-      UPDATE ${tableName} SET ${fieldsAndQuestionMark.join(',')}
+      UPDATE ${tableName} SET ${questionMark.join(',')}
       ${whoFieldUpdate && `WHERE ${whoFieldUpdate[0]} = ${whoFieldUpdate[1]}`}
     `
     try {
@@ -80,6 +70,24 @@ class mysqlSqlEncapsulation {
       return res[0]
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
+    const fieldsArr = Object.keys(fieldsAndValue)
+    const valuesArr: any[] = []
+    const questionMark: string[] = []
+    for (const key of fieldsArr) {
+      // 有多少个字段就有多少个问号
+      questionMark.push(isAdd ? '?' : `${key} = ?`) 
+      // 获取值
+      valuesArr.push(fieldsAndValue[key])
+    }
+
+    return {
+      fieldsArr,
+      valuesArr,
+      questionMark
     }
   }
 }

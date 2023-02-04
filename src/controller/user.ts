@@ -10,24 +10,30 @@ class UserController {
   async createUser(ctx: ParameterizedContext, next: Next) {
     // 获取用户请求传递的参数
     const user = ctx.request.body as IUserInfo
-    // 查询数据库数据
-    const res = await create(user)
+    // 新建数据库数据
+    await create(user)
     // 响应数据
-    ctx.body = res
+    ctx.body = {
+      msg: '新建成功',
+    }
   }
 
   // 修改
   async updateUser(ctx: ParameterizedContext, next: Next) {
     const userInfo = ctx.request.body as IUserInfo
-    const res = await updateUser(userInfo)
-    ctx.body = res
+    await updateUser(userInfo)
+    ctx.body = {
+      msg: '修改成功',
+    }
   }
 
   // 删除
   async deleteUser(ctx: ParameterizedContext, next: Next) {
     const idObj = ctx.request.body as { id: number }
-    const res = await deleteUser(idObj)
-    ctx.body = res
+    await deleteUser(idObj)
+    ctx.body = {
+      msg: '删除成功',
+    }
   }
 }
 
