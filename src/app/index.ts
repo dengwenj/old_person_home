@@ -4,12 +4,15 @@
  */
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
+import cors from 'koa2-cors'
 
 import { userRouter } from '../router'
 import errorHandle from './error_handle'
 
 const app = new Koa()
 
+// 解决跨域
+app.use(cors())
 // 用于解析 boby
 app.use(bodyparser())
 app.use(userRouter.routes())
