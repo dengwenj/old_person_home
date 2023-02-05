@@ -1,9 +1,9 @@
 import { userServices } from '../services'
 
 import type { Next, ParameterizedContext } from 'koa'
-import type { IUserInfo } from '../global/types'
+import type { IUserInfo, Page } from '../global/types'
 
-const { create, updateUser, deleteUser } = userServices
+const { create, updateUser, deleteUser, pageUser } = userServices
 
 class UserController {
   // 新增
@@ -33,6 +33,16 @@ class UserController {
     await deleteUser(idObj)
     ctx.body = {
       msg: '删除成功',
+    }
+  }
+
+  // 分页
+  async pageUser(ctx: ParameterizedContext, next: Next) {
+    const data = ctx.request.body as Page
+    const res = await pageUser(data)
+    ctx.body = {
+      msg: '查询成功',
+      data: res
     }
   }
 }

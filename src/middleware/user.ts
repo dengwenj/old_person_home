@@ -5,9 +5,9 @@ import type { IUserInfo } from '../global/types'
 
 // 判断用户名密码
 async function verifyUser(ctx: ParameterizedContext, next: Next) {
-  const { username, password } = ctx.request.body as IUserInfo
+  const { username, password, role } = ctx.request.body as IUserInfo
   
-  if (!username || !password) {
+  if (!username || !password || !role) {
     ctx.app.emit('error', ErrorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED, ctx)
     return
   }

@@ -11,7 +11,9 @@ export default function errorHandle(error: number, ctx: ParameterizedContext) {
   }
 
   if (map[error]) {
-    ctx.body = map[error].message
+    ctx.body = {
+      msg: map[error].message
+    }
     ctx.status = map[error].status
     return
   }

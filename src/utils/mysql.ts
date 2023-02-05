@@ -3,7 +3,7 @@
  */
 import pool from '../dataBase'
 
-class mysqlSqlEncapsulation {
+class MySQLSqlEncapsulation {
   /**
    * 新增
    */
@@ -73,6 +73,46 @@ class mysqlSqlEncapsulation {
     }
   }
 
+  /**
+   * 分页
+   */
+  async actionPage(
+    tableName: string,
+    currentAndPageSize: number[],
+    fuzzyFieldsAndValue: Record<string, any>
+  ) {
+    const fieldsArr = Object.keys(fuzzyFieldsAndValue)
+    let sql: string = ''
+
+    // 如果有模糊查询不为0
+    if (fieldsArr.length) {
+      // 说明只有一个模糊查询
+      if (fieldsArr.length === 1) {
+        const field = fieldsArr[0]
+        sql = `WHERE ${field} LIKE '%${fuzzyFieldsAndValue[field]}%'`
+      } else {
+        // 多个模糊查询
+        for (let i = 0; i < fieldsArr.length; i++) {
+          sql += `
+            ${fieldsArr[i]} LIKE '%${fuzzyFieldsAndValue[fieldsArr[i]]}%' 
+            ${i !== fieldsArr.length - 1 ? 'and' : ''}
+          `
+        }
+        // WHERE username like '%h%' and password like '%12%'
+        sql = `WHERE ${sql}`
+      }
+    }
+  
+    const [current, pageSize] = currentAndPageSize
+    const statement = `
+      SELECT * FROM ${tableName} 
+      ${sql}
+      LIMIT ${(current - 1) * pageSize},${pageSize}
+    `
+    const res = await pool.execute(statement)
+    return res[0]
+  }
+
   addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
     const fieldsArr = Object.keys(fieldsAndValue)
     const valuesArr: any[] = []
@@ -92,4 +132,4 @@ class mysqlSqlEncapsulation {
   }
 }
 
-export default new mysqlSqlEncapsulation
+export default new MySQLSqlEncapsulation
