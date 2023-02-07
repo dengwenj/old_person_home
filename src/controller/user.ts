@@ -1,6 +1,9 @@
+import jwt from 'jsonwebtoken'
+
 import { userServices } from '../services'
 import ErrorTypes from '../global/constants/error_types'
 import md5password from '../utils/md5password'
+import { privateContent } from '../config/keysContent'
 
 import type { Next, ParameterizedContext } from 'koa'
 import type { ILogin, IUserInfo, Page } from '../global/types'
@@ -10,6 +13,7 @@ const { create, updateUser, deleteUser, pageUser } = userServices
 class UserController {
   // 登录
   async loginUser(ctx: ParameterizedContext, next: Next) {
+    const { username, password } = ctx.request.body as ILogin
     // 判断用户名是否存在
     const res: any = await userServices.loginUser(ctx.request.body as ILogin)
     // 说明不存在该用户名
@@ -18,14 +22,26 @@ class UserController {
       return
     }
     // 判断密码是否正确
-    if (md5password((ctx.request.body as ILogin).password) !== res[0].password) {
+    if (md5password(password) !== res[0].password) {
       // 说明密码错误
       ctx.app.emit('error', ErrorTypes.PASSWORD_ERROR, ctx)
       return
     }
+    // 实现 token
+    const token = jwt.sign(res[0], privateContent,  {
+      // expiresIn: 60 * 60 * 24 * 30, // 一个月
+      expiresIn: 10,
+      algorithm: 'RS256'
+    })
 
     ctx.body = {
-      msg: '登录成功'
+      msg: '登录成功',
+      data: {
+        id: res[0].id,
+        role: res[0].role,
+        username
+      },
+      token
     }
   }
 

@@ -5,6 +5,7 @@ import KoaRouter from 'koa-router'
 
 import { userController } from '../controller'
 import { userMiddleware } from '../middleware'
+import verifyAuth from '../middleware/verifyAuth'
 
 const userRouter = new KoaRouter({ prefix: '/user' })
 const { 
@@ -22,7 +23,7 @@ const {
 // 登录
 userRouter.post('/login', verifyLogin, loginUser)
 // 新增
-userRouter.post('/register', verifyUser, createUser)
+userRouter.post('/register',verifyAuth, verifyUser, createUser)
 // 编辑
 userRouter.post('/update', updateUser)
 // 删除
