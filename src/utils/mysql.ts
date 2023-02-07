@@ -109,8 +109,12 @@ class MySQLSqlEncapsulation {
       ${sql}
       LIMIT ${(current - 1) * pageSize},${pageSize}
     `
-    const res = await pool.execute(statement)
-    return res[0]
+    try {
+      const res = await pool.execute(statement)
+      return res[0]
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {

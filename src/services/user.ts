@@ -44,7 +44,7 @@ class UserServices {
     delete fuzzy.current
     delete fuzzy.pageSize
 
-    const res = actionPage('user', [current || 0, pageSize || 10], fuzzy)
+    const res = actionPage('user', [current || 1, pageSize || 10], fuzzy)
     return res
   }
 }
