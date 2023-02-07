@@ -30,7 +30,7 @@ class UserController {
     // 实现 token
     const token = jwt.sign(res[0], privateContent,  {
       // expiresIn: 60 * 60 * 24 * 30, // 一个月
-      expiresIn: 10,
+      expiresIn: 60 * 60, // 一个小时
       algorithm: 'RS256'
     })
 

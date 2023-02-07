@@ -25,10 +25,10 @@ userRouter.post('/login', verifyLogin, loginUser)
 // 新增
 userRouter.post('/register',verifyAuth, verifyUser, createUser)
 // 编辑
-userRouter.post('/update', updateUser)
+userRouter.post('/update', verifyAuth, updateUser)
 // 删除
-userRouter.post('/delete', deleteUser)
+userRouter.post('/delete', verifyAuth, deleteUser)
 // 分页查询
-userRouter.post('/page', pageUser)
+userRouter.post('/page', verifyAuth, pageUser)
 
 export default userRouter
