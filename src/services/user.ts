@@ -39,12 +39,7 @@ class UserServices {
 
   // 分页
   pageUser(data: Page) {
-    const { current, pageSize } = data
-    const fuzzy = { ...data }
-    delete fuzzy.current
-    delete fuzzy.pageSize
-
-    const res = actionPage('user', [current || 1, pageSize || 10], fuzzy)
+    const res = actionPage('user', data)
     return res
   }
 }

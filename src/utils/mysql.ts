@@ -3,6 +3,8 @@
  */
 import pool from '../dataBase'
 
+import type { Page } from '../global/types'
+
 class MySQLSqlEncapsulation {
   /**
    * 新增
@@ -78,11 +80,14 @@ class MySQLSqlEncapsulation {
    */
   async actionPage(
     tableName: string,
-    currentAndPageSize: number[],
-    fuzzyFieldsAndValue: Record<string, any>
+    data: Page
   ) {
+    const fuzzyFieldsAndValue = { ...data }
+    delete fuzzyFieldsAndValue.current
+    delete fuzzyFieldsAndValue.pageSize
+
     const fieldsArr = Object.keys(fuzzyFieldsAndValue)
-    let sql: string = ''
+    let sql = ''
 
     // 如果有模糊查询不为0
     if (fieldsArr.length) {
@@ -103,11 +108,11 @@ class MySQLSqlEncapsulation {
       }
     }
   
-    const [current, pageSize] = currentAndPageSize
+    const { current, pageSize } = data
     const statement = `
       SELECT * FROM ${tableName} 
       ${sql}
-      LIMIT ${(current - 1) * pageSize},${pageSize}
+      LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
     try {
       const res = await pool.execute(statement)
