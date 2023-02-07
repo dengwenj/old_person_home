@@ -86,9 +86,17 @@ class MySQLSqlEncapsulation {
     delete fuzzyFieldsAndValue.current
     delete fuzzyFieldsAndValue.pageSize
 
+    // 如果值为(undefined、null)就删除、边界判断
+    const fieldsAllArr = Object.keys(fuzzyFieldsAndValue)
+    for (const key of fieldsAllArr) {
+      if (fuzzyFieldsAndValue[key] === undefined || fuzzyFieldsAndValue[key] === null) {
+        delete fuzzyFieldsAndValue[key]
+      }
+    }
+
+    // 删除之后的 fields 数组
     const fieldsArr = Object.keys(fuzzyFieldsAndValue)
     let sql = ''
-
     // 如果有模糊查询不为0
     if (fieldsArr.length) {
       // 说明只有一个模糊查询
