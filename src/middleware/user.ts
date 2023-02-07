@@ -31,17 +31,8 @@ async function verifyLogin(ctx: ParameterizedContext, next: Next) {
     ctx.app.emit('error', ErrorTypes.USERNAME_OR_PASSWORD_IS_REQUIRED, ctx)
     return
   }
-
-  // 判断用户名是否存在
-  const res: any = await userServices.loginUser({ username, password })
-  // 说明不存在该用户名
-  if (res.length === 0) {
-    ctx.app.emit('error', ErrorTypes.USERNAME_NOT_EXISTS, ctx)
-    return
-  }
-
-  // 判断密码是否正确
-
+  
+  await next()
 }
 
 const userMiddleware = {

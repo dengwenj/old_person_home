@@ -1,15 +1,32 @@
 import { userServices } from '../services'
 import ErrorTypes from '../global/constants/error_types'
+import md5password from '../utils/md5password'
 
 import type { Next, ParameterizedContext } from 'koa'
-import type { IUserInfo, Page } from '../global/types'
+import type { ILogin, IUserInfo, Page } from '../global/types'
 
 const { create, updateUser, deleteUser, pageUser } = userServices
 
 class UserController {
   // 登录
   async loginUser(ctx: ParameterizedContext, next: Next) {
+    // 判断用户名是否存在
+    const res: any = await userServices.loginUser(ctx.request.body as ILogin)
+    // 说明不存在该用户名
+    if (res.length === 0) {
+      ctx.app.emit('error', ErrorTypes.USERNAME_NOT_EXISTS, ctx)
+      return
+    }
+    // 判断密码是否正确
+    if (md5password((ctx.request.body as ILogin).password) !== res[0].password) {
+      // 说明密码错误
+      ctx.app.emit('error', ErrorTypes.PASSWORD_ERROR, ctx)
+      return
+    }
 
+    ctx.body = {
+      msg: '登录成功'
+    }
   }
 
   // 新增

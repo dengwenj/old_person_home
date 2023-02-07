@@ -1,3 +1,5 @@
+import type Application from "koa"
+
 export interface IUserInfo {
   id?: number
   username?: string
@@ -13,4 +15,8 @@ export type Page = {
 export interface ILogin {
   username: string
   password: string
+}
+
+export interface IApplication extends Application {
+  useRoutes?: (app: Application) => void
 }
