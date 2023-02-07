@@ -11,10 +11,16 @@ const {
   createUser, 
   updateUser, 
   deleteUser, 
-  pageUser 
+  pageUser,
+  loginUser
 } = userController
-const { verifyUser } = userMiddleware
+const { 
+  verifyUser,
+  verifyLogin
+} = userMiddleware
 
+// 登录
+userRouter.post('/login', verifyLogin, loginUser)
 // 新增
 userRouter.post('/register', verifyUser, createUser)
 // 编辑

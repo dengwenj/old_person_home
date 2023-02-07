@@ -130,6 +130,22 @@ class MySQLSqlEncapsulation {
     }
   }
 
+  /**
+   * 查询
+   */
+  async actionQuery(tableName: string, condition?: string) {
+    const statement = `
+      SELECT * FROM ${tableName}
+      ${condition ? `WHERE ${condition}` : ''}
+    `
+    try {
+      const res = await pool.execute(statement)
+      return res[0]
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
     const fieldsArr = Object.keys(fieldsAndValue)
     const valuesArr: any[] = []

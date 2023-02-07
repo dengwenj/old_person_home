@@ -9,3 +9,8 @@ export type Page = {
   current?: number
   pageSize?: number
 } & Record<string, any>
+
+export interface ILogin {
+  username: string
+  password: string
+}

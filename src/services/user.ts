@@ -1,18 +1,33 @@
 import mysqlSqlEncapsulation from '../utils/mysql'
 
-import type { IUserInfo } from '../global/types'
+import type { ILogin, IUserInfo } from '../global/types'
 import type { Page } from '../global/types' 
 
 const { 
   actionAdd, 
   actionUpdate,
   actionDelete,
-  actionPage
+  actionPage,
+  actionQuery
 } = mysqlSqlEncapsulation
 
 class UserServices {
+  // 登录
+  loginUser(loginInfo: ILogin) {
+    const { username, password } = loginInfo
+    const res = actionQuery('user', `username = '${username}'`)
+    return res
+  }
+
   // 新增
-  create({ username, password, role }: IUserInfo) {
+  async create({ username, password, role }: IUserInfo) {
+    // 用户名唯一
+    const res1: any = await actionQuery('user', `username = '${username}'`)
+    // 说明找到了，数据库有就不允许在添加了
+    if (res1.length) {
+      return true
+    }
+
     const res = actionAdd.call(mysqlSqlEncapsulation, 'user', {
       username,
       password,

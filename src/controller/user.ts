@@ -1,4 +1,5 @@
 import { userServices } from '../services'
+import ErrorTypes from '../global/constants/error_types'
 
 import type { Next, ParameterizedContext } from 'koa'
 import type { IUserInfo, Page } from '../global/types'
@@ -6,12 +7,22 @@ import type { IUserInfo, Page } from '../global/types'
 const { create, updateUser, deleteUser, pageUser } = userServices
 
 class UserController {
+  // 登录
+  async loginUser(ctx: ParameterizedContext, next: Next) {
+
+  }
+
   // 新增
   async createUser(ctx: ParameterizedContext, next: Next) {
     // 获取用户请求传递的参数
     const user = ctx.request.body as IUserInfo
-    // 新建数据库数据
-    await create(user)
+
+    const res = await create(user)
+    // 用户名存在(唯一性)
+    if (res === true) {
+      ctx.app.emit('error', ErrorTypes.USERNAME_EXISTS, ctx)
+      return
+    }
     // 响应数据
     ctx.body = {
       msg: '新建成功',
