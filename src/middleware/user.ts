@@ -1,5 +1,4 @@
 import ErrorTypes from '../global/constants/error_types'
-import { userServices } from '../services'
 
 import type { Next, ParameterizedContext } from "koa"
 import type { IUserInfo, ILogin } from '../global/types'

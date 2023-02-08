@@ -3,7 +3,9 @@
  * @description 控制器 处理逻辑的地方
  */
 import userController from './user'
+import oldPersonController from './oldPerson'
 
 export {
-  userController
+  userController,
+  oldPersonController
 }

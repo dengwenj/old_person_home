@@ -3,7 +3,9 @@
  * @description 路由只负责注册接口
  */
 import userRouter from "./user"
+import oldPersonRouter from "./oldPerson"
 
 export {
-  userRouter
+  userRouter,
+  oldPersonRouter
 }

@@ -4,6 +4,7 @@ enum ErrorTypes {
   USERNAME_NOT_EXISTS = 2,
   PASSWORD_ERROR = 3,
   UNAUTHORIZATION = 4,
+  REQUIRE_HAVA_VALUE = 5,
 }
 
 export default ErrorTypes

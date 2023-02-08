@@ -3,7 +3,9 @@
  * @description 中间件
  */
 import userMiddleware from './user'
+import oldPersonMiddleware from './oldPerson'
 
 export {
-  userMiddleware
+  userMiddleware,
+  oldPersonMiddleware
 }

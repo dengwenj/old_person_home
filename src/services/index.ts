@@ -3,7 +3,9 @@
  * @description 操作关于数据库相关的
  */
 import userServices from './user'
+import oldPersonServices from './oldPerson'
 
 export {
-  userServices
+  userServices,
+  oldPersonServices
 }

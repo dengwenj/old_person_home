@@ -23,6 +23,10 @@ export default function errorHandle(error: number, ctx: ParameterizedContext) {
     4: {
       msg: '未授权，token 已过期',
       status: 401
+    },
+    5: {
+      msg: '某些字段必须有值',
+      status: 400
     }
   }
 
