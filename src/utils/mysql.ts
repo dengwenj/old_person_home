@@ -40,12 +40,6 @@ class MySQLSqlEncapsulation {
     fieldsAndValue: Record<string, any>,
     whoFieldUpdate?: [string, string | number]
   ) {
-    // 如果值为(undefined、null)就删除、边界判断
-    Object.keys(fieldsAndValue).forEach((key) => {
-      if (fieldsAndValue[key] === undefined || fieldsAndValue[key] === null) {
-        delete fieldsAndValue[key]
-      }
-    })
     const { questionMark, valuesArr } = this.addUpdateCommon(false, fieldsAndValue)
 
     // 通过哪个字段去修改  UPDATE user SET username = ? WHERE id = 1
@@ -159,6 +153,13 @@ class MySQLSqlEncapsulation {
   }
 
   addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
+    // 如果值为(undefined、null)就删除、边界判断
+    Object.keys(fieldsAndValue).forEach((key) => {
+      if (fieldsAndValue[key] === undefined || fieldsAndValue[key] === null) {
+        delete fieldsAndValue[key]
+      }
+    })
+
     const fieldsArr = Object.keys(fieldsAndValue)
     const valuesArr: any[] = []
     const questionMark: string[] = []

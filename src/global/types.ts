@@ -36,4 +36,5 @@ export interface IOldPersonInfo {
   familyMemberJob?: string
   createTime?: string
   updateTime?: string 
+  familyMemberAddress?: string
 }

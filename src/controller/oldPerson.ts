@@ -17,7 +17,8 @@ class OldPersonController {
       isSpouse,
       familyMember,
       familyMemberPhone,
-      familyMemberJob
+      familyMemberJob,
+      familyMemberAddress
     } = ctx.request.body as IOldPersonInfo
 
     const createTime = Date.now()
@@ -32,6 +33,7 @@ class OldPersonController {
       familyMember,
       familyMemberPhone,
       familyMemberJob,
+      familyMemberAddress,
       createTime: String(createTime)
     })
 
