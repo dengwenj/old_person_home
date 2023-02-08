@@ -128,9 +128,15 @@ class MySQLSqlEncapsulation {
       ${sql}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
+    const totalStatement = `SELECT * FROM ${tableName}`
     try {
       const res = await pool.execute(statement)
-      return res[0]
+      // 查询 total
+      const res1: any[] = await pool.execute(totalStatement)
+      return {
+        data: res[0],
+        total: res1[0].length
+      }
     } catch (error) {
       console.log(error)
     }

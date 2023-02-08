@@ -86,7 +86,8 @@ class UserController {
     const res = await pageUser(data)
     ctx.body = {
       msg: '查询成功',
-      data: res
+      data: res?.data,
+      total: res?.total
     }
   }
 }

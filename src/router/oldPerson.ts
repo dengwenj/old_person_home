@@ -11,7 +11,8 @@ const oldPersonRouter = new KoaRouter({ prefix: '/oldperson' })
 const { 
   addOldPersonC,
   updateOldPersonC, 
-  deleteOldPersonC
+  deleteOldPersonC,
+  pageOldPersonC
 } = oldPersonController
 const { addOldPersonM } = oldPersonMiddleware
 
@@ -21,6 +22,8 @@ oldPersonRouter.post('/add', verifyAuth, addOldPersonM, addOldPersonC)
 oldPersonRouter.post('/update', verifyAuth, updateOldPersonC)
 // 删除
 oldPersonRouter.post('/delete', verifyAuth, deleteOldPersonC)
+// 分页
+oldPersonRouter.post('/page', verifyAuth, pageOldPersonC)
 
 export default oldPersonRouter
 

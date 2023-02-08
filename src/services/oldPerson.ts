@@ -1,6 +1,6 @@
 import mysqlSqlEncapsulation from '../utils/mysql'
 
-import type { IOldPersonInfo } from '../global/types'
+import type { IOldPersonInfo, Page } from '../global/types'
 
 class OldPersonServices {
   // 人员新增塞入数据库
@@ -22,6 +22,12 @@ class OldPersonServices {
   // 删除
   deleteOldPersonS(id: number) {
     const res = mysqlSqlEncapsulation.actionDelete('old_person', ['id', id])
+    return res
+  }
+
+  // 分页
+  pageOldPersonS(data: Page) {
+    const res = mysqlSqlEncapsulation.actionPage('old_person', data)
     return res
   }
 }

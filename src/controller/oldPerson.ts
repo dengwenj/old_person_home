@@ -2,7 +2,7 @@ import { oldPersonServices } from '../services'
 import ErrorTypes from '../global/constants/error_types'
 
 import type { Next, ParameterizedContext } from 'koa'
-import type { IOldPersonInfo } from '../global/types'
+import type { IOldPersonInfo, Page } from '../global/types'
 
 class OldPersonController {
   // 人员新增
@@ -67,6 +67,17 @@ class OldPersonController {
     await oldPersonServices.deleteOldPersonS(id)
     ctx.body = {
       msg: '删除成功'
+    }
+  }
+
+  // 分页
+  async pageOldPersonC(ctx: ParameterizedContext, next: Next) {
+    const data = ctx.request.body as Page
+    const res = await oldPersonServices.pageOldPersonS(data)
+    ctx.body = {
+      msg: '查询成功',
+      data: res?.data,
+      total: res?.total
     }
   }
 }
