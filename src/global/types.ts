@@ -30,6 +30,7 @@ export interface IOldPersonInfo {
   phone?: string
   address?: string
   relation?: string
+  isSpouse?: number
   familyMember?: string
   familyMemberPhone?: string
   familyMemberJob?: string

@@ -14,6 +14,7 @@ class OldPersonController {
       phone,
       address,
       relation,
+      isSpouse,
       familyMember,
       familyMemberPhone,
       familyMemberJob
@@ -27,6 +28,7 @@ class OldPersonController {
       phone,
       address,
       relation,
+      isSpouse,
       familyMember,
       familyMemberPhone,
       familyMemberJob,
