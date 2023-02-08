@@ -8,11 +8,13 @@ import { oldPersonMiddleware } from '../middleware'
 import verifyAuth from '../middleware/verifyAuth'
 
 const oldPersonRouter = new KoaRouter({ prefix: '/oldperson' })
-const { addOldPersonC } = oldPersonController
+const { addOldPersonC, updateOldPersonC } = oldPersonController
 const { addOldPersonM } = oldPersonMiddleware
 
 // 新增
 oldPersonRouter.post('/add', verifyAuth, addOldPersonM, addOldPersonC)
+// 编辑
+oldPersonRouter.post('/update', verifyAuth, updateOldPersonC)
 
 export default oldPersonRouter
 

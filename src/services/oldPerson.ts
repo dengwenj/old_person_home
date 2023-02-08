@@ -8,6 +8,16 @@ class OldPersonServices {
     const res = mysqlSqlEncapsulation.actionAdd('old_person', oldPersonInfo)
     return res
   }
+
+  // 人员编辑
+  updateOldPersonS(oldPersonInfo: IOldPersonInfo) {
+    const res = mysqlSqlEncapsulation.actionUpdate(
+      'old_person', 
+      oldPersonInfo, 
+      ['id', oldPersonInfo.id!]
+    )
+    return res
+  }
 }
 
 export default new OldPersonServices()

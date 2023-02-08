@@ -23,14 +23,16 @@ export interface IApplication extends Application {
 
 // 人员信息
 export interface IOldPersonInfo {
-  oldPersonName: string
-  gender: number
-  age: number
-  phone: string
-  address: string
-  relation: string
-  familyMember: string
-  familyMemberPhone: string
+  id?: number,
+  oldPersonName?: string
+  gender?: number
+  age?: number
+  phone?: string
+  address?: string
+  relation?: string
+  familyMember?: string
+  familyMemberPhone?: string
   familyMemberJob?: string
-  createTime: string
+  createTime?: string
+  updateTime?: string 
 }
