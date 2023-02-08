@@ -18,6 +18,12 @@ class OldPersonServices {
     )
     return res
   }
+
+  // 删除
+  deleteOldPersonS(id: number) {
+    const res = mysqlSqlEncapsulation.actionDelete('old_person', ['id', id])
+    return res
+  }
 }
 
 export default new OldPersonServices()
