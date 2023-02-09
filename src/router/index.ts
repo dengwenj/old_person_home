@@ -4,8 +4,10 @@
  */
 import userRouter from "./user"
 import oldPersonRouter from "./oldPerson"
+import healthyRouter from "./healthy"
 
 export {
   userRouter,
-  oldPersonRouter
+  oldPersonRouter,
+  healthyRouter
 }
