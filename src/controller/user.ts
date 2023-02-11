@@ -16,6 +16,8 @@ class UserController {
     const { username, password } = ctx.request.body as ILogin
     // 判断用户名是否存在
     const res: any = await userServices.loginUser(ctx.request.body as ILogin)
+    console.log(res, 'res');
+    
     // 说明不存在该用户名
     if (res.length === 0) {
       ctx.app.emit('error', ErrorTypes.USERNAME_NOT_EXISTS, ctx)
@@ -27,6 +29,8 @@ class UserController {
       ctx.app.emit('error', ErrorTypes.PASSWORD_ERROR, ctx)
       return
     }
+    console.log(privateContent, 'privateContent');
+    
     // 实现 token
     const token = jwt.sign(res[0], privateContent,  {
       // expiresIn: 60 * 60 * 24 * 30, // 一个月
