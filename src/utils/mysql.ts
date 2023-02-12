@@ -152,7 +152,7 @@ class MySQLSqlEncapsulation {
     }
   }
 
-  addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
+  private addUpdateCommon(isAdd: boolean, fieldsAndValue: Record<string, any>) {
     // 如果值为(undefined、null)就删除、边界判断
     Object.keys(fieldsAndValue).forEach((key) => {
       if (fieldsAndValue[key] === undefined || fieldsAndValue[key] === null) {

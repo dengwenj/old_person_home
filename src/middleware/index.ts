@@ -4,8 +4,10 @@
  */
 import userMiddleware from './user'
 import oldPersonMiddleware from './oldPerson'
+import healthyM from './healthy'
 
 export {
   userMiddleware,
-  oldPersonMiddleware
+  oldPersonMiddleware,
+  healthyM
 }

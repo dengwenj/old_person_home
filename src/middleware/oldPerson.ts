@@ -16,8 +16,7 @@ class OldPersonMiddleware {
       familyMember,
       familyMemberPhone,
     } = ctx.request.body as IOldPersonInfo
-    console.log(ctx.request.body);
-    
+
     // 必须有值
     const fieldsArr = [oldPersonName, gender, age, birthDate, phone, address, relation, familyMember, familyMemberPhone]
     for (const field of fieldsArr) {

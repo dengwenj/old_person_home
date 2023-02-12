@@ -30,6 +30,15 @@ class OldPersonServices {
     const res = mysqlSqlEncapsulation.actionPage('old_person', data)
     return res
   }
+
+  // 通过人员拿到人员列表
+  getOldpersonByNameS(oldPersonName: string) {
+    const res = mysqlSqlEncapsulation.actionQuery(
+      'old_person', 
+      `oldPersonName like '%${oldPersonName}%'`
+    )
+    return res
+  }
 }
 
 export default new OldPersonServices()

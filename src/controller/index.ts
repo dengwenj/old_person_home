@@ -4,8 +4,10 @@
  */
 import userController from './user'
 import oldPersonController from './oldPerson'
+import healthyController from './healthy'
 
 export {
   userController,
-  oldPersonController
+  oldPersonController,
+  healthyController
 }

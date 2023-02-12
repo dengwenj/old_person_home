@@ -86,6 +86,22 @@ class OldPersonController {
       total: res?.total
     }
   }
+
+  // 通过人员姓名拿到人员 模糊查询
+  async getOldpersonByNameC(ctx: ParameterizedContext, next: Next) {
+    const { oldPersonName } = ctx.request.body as { oldPersonName: string }
+    if (!oldPersonName) {
+      ctx.app.emit('error', ErrorTypes.REQUIRE_HAVA_VALUE, ctx)
+      return
+    }
+
+    // 说明有值
+    const data = await oldPersonServices.getOldpersonByNameS(oldPersonName)
+    ctx.body = {
+      msg: '查询成功',
+      data
+    }
+  }
 }
 
 
