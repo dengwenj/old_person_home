@@ -39,3 +39,18 @@ export interface IOldPersonInfo {
   updateTime?: string 
   familyMemberAddress?: string
 }
+
+// 健康
+export interface IHealthyInfo {
+  id?: number
+  oldPersonId?: number
+  PETime?: string
+  height?: number
+  weight?: number
+  bloodType?: string
+  heartRate?: string
+  bloodOxygen?: string
+  bloodPressure?: string
+  isAllergy?: number
+  isSmoke?: number
+}
