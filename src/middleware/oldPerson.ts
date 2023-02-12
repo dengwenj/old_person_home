@@ -9,14 +9,17 @@ class OldPersonMiddleware {
       oldPersonName,
       gender,
       age,
+      birthDate,
       phone,
       address,
       relation,
       familyMember,
       familyMemberPhone,
     } = ctx.request.body as IOldPersonInfo
+    console.log(ctx.request.body);
+    
     // 必须有值
-    const fieldsArr = [oldPersonName, gender, age, phone, address, relation, familyMember, familyMemberPhone]
+    const fieldsArr = [oldPersonName, gender, age, birthDate, phone, address, relation, familyMember, familyMemberPhone]
     for (const field of fieldsArr) {
       if (field === '' || field === undefined || field === null) {
         ctx.app.emit('error', ErrorTypes.REQUIRE_HAVA_VALUE, ctx)

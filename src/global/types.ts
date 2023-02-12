@@ -27,6 +27,7 @@ export interface IOldPersonInfo {
   oldPersonName?: string
   gender?: number
   age?: number
+  birthDate?: string
   phone?: string
   address?: string
   relation?: string
