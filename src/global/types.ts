@@ -53,4 +53,5 @@ export interface IHealthyInfo {
   bloodPressure?: string
   isAllergy?: number
   isSmoke?: number
+  healthyDes?: string
 }
