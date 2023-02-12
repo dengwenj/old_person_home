@@ -2,7 +2,7 @@ import { healthyServices } from '../services'
 import ErrorTypes from '../global/constants/error_types'
 
 import type { Next, ParameterizedContext } from "koa"
-import type { IHealthyInfo } from "../global/types"
+import type { IHealthyInfo, Page } from "../global/types"
 
 class HealthyController {
   // 健康档案新增
@@ -42,6 +42,14 @@ class HealthyController {
 
   // 分页
   async pageHealthyC(ctx: ParameterizedContext, next: Next) {
+    const data = ctx.request.body as Page
+
+    const res = await healthyServices.pageHealthyS(data)
+    ctx.body = {
+      msg: '查询成功',
+      data: res?.data,
+      total: res?.total
+    }
   }
 }
 

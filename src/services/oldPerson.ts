@@ -1,6 +1,6 @@
 import mysqlSqlEncapsulation from '../utils/mysql'
 
-import type { IOldPersonInfo, Page } from '../global/types'
+import type { IHealthyInfo, IOldPersonInfo, Page } from '../global/types'
 
 class OldPersonServices {
   // 人员新增塞入数据库
@@ -20,7 +20,21 @@ class OldPersonServices {
   }
 
   // 删除
-  deleteOldPersonS(id: number) {
+  async deleteOldPersonS(id: number) {
+    // 人员删除了，健康档案也要跟着删除
+    // 通过人员 id 拿到健康档案的数据
+    const getHealthyList = await mysqlSqlEncapsulation.actionQuery(
+      'healthy',
+      `oldPersonId = '${id}'`
+    ) as IHealthyInfo[]
+    // 删除健康档案数据
+    for (const item of getHealthyList) {
+      await mysqlSqlEncapsulation.actionDelete(
+        'healthy',
+        ['id', item.id!]
+      )
+    }
+    
     const res = mysqlSqlEncapsulation.actionDelete('old_person', ['id', id])
     return res
   }
