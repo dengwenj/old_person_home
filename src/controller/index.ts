@@ -5,9 +5,11 @@
 import userController from './user'
 import oldPersonController from './oldPerson'
 import healthyController from './healthy'
+import casesController from './cases'
 
 export {
   userController,
   oldPersonController,
-  healthyController
+  healthyController,
+  casesController
 }

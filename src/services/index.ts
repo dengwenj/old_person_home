@@ -5,9 +5,11 @@
 import userServices from './user'
 import oldPersonServices from './oldPerson'
 import healthyServices from './healthy'
+import casesServices from './cases'
 
 export {
   userServices,
   oldPersonServices,
-  healthyServices
+  healthyServices,
+  casesServices
 }

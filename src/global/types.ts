@@ -56,3 +56,15 @@ export interface IHealthyInfo {
   isSmoke?: number
   healthyDes?: string
 }
+
+// 病例档案
+export interface ICasesInfo {
+  id?: number
+  oldPersonId?: number
+  cases?: string
+  fallIllTime?: string 
+  isTreat?: number
+  treatDrug?: string
+  drugPrice?: string
+  treatHospital?: string
+}
