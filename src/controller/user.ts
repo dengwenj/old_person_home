@@ -50,7 +50,11 @@ class UserController {
   async createUser(ctx: ParameterizedContext, next: Next) {
     // 获取用户请求传递的参数
     const user = ctx.request.body as IUserInfo
-
+    // 创建时间
+    const createTime = Date.now()
+    user.createTime = String(createTime)
+    console.log(user, 'user');
+    
     const res = await create(user)
     // 用户名存在(唯一性)
     if (res === true) {

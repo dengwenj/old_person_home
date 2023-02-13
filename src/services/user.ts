@@ -20,7 +20,7 @@ class UserServices {
   }
 
   // 新增
-  async create({ username, password, role }: IUserInfo) {
+  async create({ username, password, role, createTime }: IUserInfo) {
     // 用户名唯一
     const res1: any = await actionQuery('user', `username = '${username}'`)
     // 说明找到了，数据库有就不允许在添加了
@@ -31,7 +31,8 @@ class UserServices {
     const res = actionAdd.call(mysqlSqlEncapsulation, 'user', {
       username,
       password,
-      role
+      role,
+      createTime
     })
     return res
   }

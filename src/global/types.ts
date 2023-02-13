@@ -5,6 +5,7 @@ export interface IUserInfo {
   username?: string
   password?: string
   role?: number
+  createTime?: string
 }
 
 export type Page = {
