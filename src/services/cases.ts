@@ -43,8 +43,6 @@ class CasesServices {
       AND c.cases like '%${cases}%' 
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    console.log(statement, 'statements');
-    
     const statementTotal = `SELECT * FROM cases`
     try {
       const res = await pool.execute(statement)
@@ -56,7 +54,6 @@ class CasesServices {
       }
     } catch (error) {
       console.log(error)
-      
     }
   }
 }
