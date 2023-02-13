@@ -7,5 +7,5 @@ import env from './app/conf'
 import './dataBase'
 
 app.listen(env.APP_PORT, () => {
-  console.log('服务器启动成功' + env.APP_PORT)
+  console.log('服务器启动成功!!!!' + env.APP_PORT)
 })
