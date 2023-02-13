@@ -68,3 +68,19 @@ export interface ICasesInfo {
   drugPrice?: string
   treatHospital?: string
 }
+
+// 作息时间
+export interface IWorkRest {
+  id?: number
+  sevenEight?: string
+  eightNine?: string
+  nineTen?: string
+  tenEleven?: string
+  elevenTwelve?: string
+  twelveFourteen?: string
+  fourteenSeventeen?: string
+  seventeenNineteen?: string
+  nineteenTwentyone?: string
+  twentyoneAfter?: string
+  slogan?: string
+}
