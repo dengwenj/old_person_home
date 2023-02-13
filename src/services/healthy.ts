@@ -28,18 +28,22 @@ class HealthyServices {
 
   // 健康档案分页
   async pageHealthyS(data: Page) {
-    const { current, pageSize, oldPersonName = '', PETime = '', gender } = data
+    const { current, pageSize, oldPersonId, PETime = '', gender } = data
     let sql = ''
+    let sql1 = ''
     if (gender !== undefined && gender !== null) {
       sql = `AND o.gender like '%${gender}%'`
     } 
+    if (gender !== undefined && gender !== null) {
+      sql1 = `AND o.id = ${oldPersonId} `
+    }
     
     // 体检时间，性别，老人名字允许模糊查询
     const statement = `
       SELECT h.*, o.oldPersonName, o.gender, o.birthDate 
 			FROM healthy h, old_person o 
 			WHERE h.oldPersonId = o.id 
-      AND o.oldPersonName like '%${oldPersonName}%' 
+      ${sql1}
       AND h.PETime like '%${PETime}%' 
       ${sql}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
