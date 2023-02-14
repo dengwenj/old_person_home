@@ -85,3 +85,12 @@ export interface IWorkRest {
   twentyoneAfter?: string
   slogan?: string
 }
+
+// 外出报备
+export interface IGoOutInfo {
+  id?: number
+  oldPersonId?: number
+  goOutAddress?: string
+  goOutTime?: string
+  goOutEvent?: string
+}

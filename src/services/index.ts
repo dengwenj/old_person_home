@@ -7,11 +7,13 @@ import oldPersonServices from './oldPerson'
 import healthyServices from './healthy'
 import casesServices from './cases'
 import workRestServices from './workRest'
+import goOutServices from './goOut'
 
 export {
   userServices,
   oldPersonServices,
   healthyServices,
   casesServices,
-  workRestServices
+  workRestServices,
+  goOutServices
 }

@@ -7,11 +7,13 @@ import oldPersonController from './oldPerson'
 import healthyController from './healthy'
 import casesController from './cases'
 import workRestController from './workRest'
+import goOutController from './goOut'
 
 export {
   userController,
   oldPersonController,
   healthyController,
   casesController,
-  workRestController
+  workRestController,
+  goOutController
 }
