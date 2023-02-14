@@ -67,7 +67,7 @@ class MySQLSqlEncapsulation {
     // DELETE FROM `user` WHERE id = 4;
     const statement = `
       DELETE FROM ${tableName}
-      ${whoFieldDelete && `WHERE ${whoFieldDelete[0]} = ${whoFieldDelete[1]}`}
+      ${whoFieldDelete ? `WHERE ${whoFieldDelete[0]} = ${whoFieldDelete[1]}` : ''}
     `
     try {
       const res = await pool.execute(statement)

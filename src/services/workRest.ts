@@ -1,27 +1,33 @@
 /**
  * 作息管理
  */
-import type { ParameterizedContext, Next } from 'koa'
+import mysql from '../utils/mysql'
+
+import type { IWorkRest, Page } from '../global/types'
 
 class WorkRestServices {
   // 新增
-  addWorkRestS(ctx: ParameterizedContext, next: Next) {
-
+  addWorkRestS(data: IWorkRest) {
+    const res = mysql.actionAdd('work_rest', data)
+    return res
   }
 
   // 编辑
-  editWorkRestS(ctx: ParameterizedContext, next: Next) {
-
+  editWorkRestS(data: IWorkRest) {
+    const res = mysql.actionUpdate('work_rest', data, ['id', data.id!])
+    return res
   }
 
   // 删除
-  deleteWorkRestS(ctx: ParameterizedContext, next: Next) {
-
+  deleteWorkRestS(id: number) {
+    const res = mysql.actionDelete('work_rest', ['id', id])
+    return res
   }
 
   // 分页
-  pageWorkRestS(ctx: ParameterizedContext, next: Next) {
-
+  pageWorkRestS(data: Page) {
+    const res = mysql.actionPage('work_rest', data)
+    return res
   }
 }
 

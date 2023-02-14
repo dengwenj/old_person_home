@@ -18,7 +18,7 @@ workRestRouter.post('/add', addWorkRestC)
 // 编辑
 workRestRouter.post('/edit', editWorkRestC)
 // 删除
-workRestRouter.post('delete', deleteWorkRestC)
+workRestRouter.post('/delete', deleteWorkRestC)
 // 分页
 workRestRouter.post('/page', pageWorkRestC)
 

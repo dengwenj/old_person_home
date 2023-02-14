@@ -72,6 +72,7 @@ export interface ICasesInfo {
 // 作息时间
 export interface IWorkRest {
   id?: number
+  season?: number
   sevenEight?: string
   eightNine?: string
   nineTen?: string

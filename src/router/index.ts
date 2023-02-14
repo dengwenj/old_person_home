@@ -6,10 +6,12 @@ import userRouter from "./user"
 import oldPersonRouter from "./oldPerson"
 import healthyRouter from "./healthy"
 import casesRouter from './cases'
+import workRestRouter from "./workRest"
 
 export {
   userRouter,
   oldPersonRouter,
   healthyRouter,
-  casesRouter
+  casesRouter,
+  workRestRouter
 }
