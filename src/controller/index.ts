@@ -8,6 +8,7 @@ import healthyController from './healthy'
 import casesController from './cases'
 import workRestController from './workRest'
 import goOutController from './goOut'
+import lifeController from './life'
 
 export {
   userController,
@@ -15,5 +16,6 @@ export {
   healthyController,
   casesController,
   workRestController,
-  goOutController
+  goOutController,
+  lifeController
 }

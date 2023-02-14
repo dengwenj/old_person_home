@@ -94,3 +94,19 @@ export interface IGoOutInfo {
   goOutTime?: string
   goOutEvent?: string
 }
+
+// 入住管理
+export interface ILifeInfo {
+  id?: number
+  oldPersonId?: number
+  checkInTime?: string
+  bedroomId?: number
+}
+
+// 寝室管理
+export interface bedroomInfo {
+  id?: number
+  bedroomNum?: string
+  disPersonNum?: number
+  isFull?: number
+}

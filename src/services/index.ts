@@ -8,6 +8,7 @@ import healthyServices from './healthy'
 import casesServices from './cases'
 import workRestServices from './workRest'
 import goOutServices from './goOut'
+import lifeServices from './life'
 
 export {
   userServices,
@@ -15,5 +16,6 @@ export {
   healthyServices,
   casesServices,
   workRestServices,
-  goOutServices
+  goOutServices,
+  lifeServices
 }

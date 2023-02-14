@@ -8,6 +8,7 @@ import healthyRouter from "./healthy"
 import casesRouter from './cases'
 import workRestRouter from "./workRest"
 import goOutRouter from "./goOut"
+import lifeRouter from './life'
 
 export {
   userRouter,
@@ -15,5 +16,6 @@ export {
   healthyRouter,
   casesRouter,
   workRestRouter,
-  goOutRouter
+  goOutRouter,
+  lifeRouter
 }
