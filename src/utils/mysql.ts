@@ -47,8 +47,6 @@ class MySQLSqlEncapsulation {
       UPDATE ${tableName} SET ${questionMark.join(',')}
       ${whoFieldUpdate && `WHERE ${whoFieldUpdate[0]} = ${whoFieldUpdate[1]}`}
     `
-    console.log(statement, 'statement');
-    
     try {
       const res = await pool.execute(statement, valuesArr)
       return res[0]

@@ -4,7 +4,8 @@ import type {
   IHealthyInfo, 
   IOldPersonInfo, 
   Page,
-  ICasesInfo
+  ICasesInfo,
+  IGoOutInfo
 } from '../global/types'
 
 class OldPersonServices {
@@ -48,6 +49,18 @@ class OldPersonServices {
     for (const item of getCasesList) {
       await mysqlSqlEncapsulation.actionDelete(
         'cases',
+        ['id', item.id!]
+      )
+    }
+
+    // 外出报备也要跟着删除, 通过人员 id 拿到外出报备
+    const getGoOutList = await mysqlSqlEncapsulation.actionQuery(
+      'go_out',
+      `oldPersonId = '${id}'`
+    ) as IGoOutInfo[]
+    for (const item of getGoOutList) {
+      await mysqlSqlEncapsulation.actionDelete(
+        'go_out',
         ['id', item.id!]
       )
     }
