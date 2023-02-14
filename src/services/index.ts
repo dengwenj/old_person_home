@@ -9,6 +9,7 @@ import casesServices from './cases'
 import workRestServices from './workRest'
 import goOutServices from './goOut'
 import lifeServices from './life'
+import bedroomServices from './bedroom'
 
 export {
   userServices,
@@ -17,5 +18,6 @@ export {
   casesServices,
   workRestServices,
   goOutServices,
-  lifeServices
+  lifeServices,
+  bedroomServices
 }

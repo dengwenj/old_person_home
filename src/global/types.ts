@@ -104,7 +104,7 @@ export interface ILifeInfo {
 }
 
 // 寝室管理
-export interface bedroomInfo {
+export interface IBedroomInfo {
   id?: number
   bedroomNum?: string
   disPersonNum?: number

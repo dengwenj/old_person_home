@@ -9,6 +9,7 @@ import casesRouter from './cases'
 import workRestRouter from "./workRest"
 import goOutRouter from "./goOut"
 import lifeRouter from './life'
+import bedroomRouter from './bedroom'
 
 export {
   userRouter,
@@ -17,5 +18,6 @@ export {
   casesRouter,
   workRestRouter,
   goOutRouter,
-  lifeRouter
+  lifeRouter,
+  bedroomRouter
 }

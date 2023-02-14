@@ -9,6 +9,7 @@ import casesController from './cases'
 import workRestController from './workRest'
 import goOutController from './goOut'
 import lifeController from './life'
+import bedroomController from './bedroom'
 
 export {
   userController,
@@ -17,5 +18,6 @@ export {
   casesController,
   workRestController,
   goOutController,
-  lifeController
+  lifeController,
+  bedroomController
 }
