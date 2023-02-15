@@ -5,7 +5,8 @@ import type {
   IOldPersonInfo, 
   Page,
   ICasesInfo,
-  IGoOutInfo
+  IGoOutInfo,
+  ILifeInfo
 } from '../global/types'
 
 class OldPersonServices {
@@ -62,6 +63,33 @@ class OldPersonServices {
       await mysqlSqlEncapsulation.actionDelete(
         'go_out',
         ['id', item.id!]
+      )
+    }
+
+    // 入住也要跟着删除，寝室也要 -1
+    const getLifeList = await mysqlSqlEncapsulation.actionQuery(
+      'life',
+      `oldPersonId = '${id}'`
+    ) as ILifeInfo[]
+    if (getLifeList.length) {
+      for (const item of getLifeList) {
+        await mysqlSqlEncapsulation.actionDelete(
+          'life',
+          ['id', item.id!]
+        )
+      }
+      const res1: any = await mysqlSqlEncapsulation.actionQuery(
+        'bedroom', 
+        `id = ${getLifeList[0].bedroomId!}`
+      )
+      // 寝室人数 -1
+      await mysqlSqlEncapsulation.actionUpdate(
+        'bedroom', 
+        {
+          lived: res1[0].lived - 1,
+          isFull: 0
+        },
+        ['id', getLifeList[0].bedroomId!]
       )
     }
     
