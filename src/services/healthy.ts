@@ -48,13 +48,20 @@ class HealthyServices {
       ${sql}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    const statementTotal = `SELECT * FROM healthy`
+    const statementTotal = `
+      SELECT COUNT(*)
+			FROM healthy h, old_person o 
+			WHERE h.oldPersonId = o.id 
+      ${sql1}
+      AND h.PETime like '%${PETime}%' 
+      ${sql}
+    `
     const res = await pool.execute(statement)
     const res1: any = await pool.execute(statementTotal)
     
     return {
       data: res[0],
-      total: res1[0].length
+      total: res1[0][0]['COUNT(*)']
     }
   }
 }

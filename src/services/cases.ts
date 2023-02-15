@@ -43,14 +43,20 @@ class CasesServices {
       AND c.cases like '%${cases}%' 
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    const statementTotal = `SELECT * FROM cases`
+    const statementTotal = `
+      SELECT COUNT(*)
+			FROM cases c, old_person o 
+			WHERE c.oldPersonId = o.id 
+      ${sql}
+      AND c.cases like '%${cases}%' 
+    `
     try {
       const res = await pool.execute(statement)
       const res1: any = await pool.execute(statementTotal)
       
       return {
         data: res[0],
-        total: res1[0].length
+        total: res1[0][0]['COUNT(*)']
       }
     } catch (error) {
       console.log(error)

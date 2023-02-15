@@ -27,11 +27,15 @@ class LifeServices {
 
   // 分页
   async pageLifeS(data: Page) {
-    const { current, pageSize, oldPersonId } = data
+    const { current, pageSize, oldPersonId, bedroomId } = data
 
     let sql = ''
     if (oldPersonId !== undefined && oldPersonId !== null) {
-      sql = `AND o.id = ${oldPersonId} `
+      sql += `AND o.id = ${oldPersonId} `
+    }
+
+    if (bedroomId !== undefined && bedroomId !== null) {
+      sql += `AND l.bedroomId = ${bedroomId} `
     }
     
     // 老人名字允许模糊查询
@@ -43,14 +47,20 @@ class LifeServices {
       ${sql}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    const statementTotal = `SELECT * FROM life`
+    const statementTotal = `
+      SELECT COUNT(*)
+			FROM life l, old_person o, bedroom b
+			WHERE l.oldPersonId = o.id 
+      AND b.id = l.bedroomId
+      ${sql}
+    `
     try {
       const res = await pool.execute(statement)
       const res1: any = await pool.execute(statementTotal)
       
       return {
         data: res[0],
-        total: res1[0].length
+        total: res1[0][0]['COUNT(*)']
       }
     } catch (error) {
       console.log(error)

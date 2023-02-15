@@ -43,14 +43,20 @@ class GoOutServices {
       AND g.goOutEvent like '%${goOutEvent}%' 
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    const statementTotal = `SELECT * FROM go_out`
+    const statementTotal = `
+      SELECT COUNT(*)
+			FROM go_out g, old_person o 
+			WHERE g.oldPersonId = o.id 
+      ${sql}
+      AND g.goOutEvent like '%${goOutEvent}%' 
+    `
     try {
       const res = await pool.execute(statement)
       const res1: any = await pool.execute(statementTotal)
       
       return {
         data: res[0],
-        total: res1[0].length
+        total: res1[0][0]['COUNT(*)']
       }
     } catch (error) {
       console.log(error)

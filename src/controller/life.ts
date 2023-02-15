@@ -167,8 +167,6 @@ class LifeController {
     const data = ctx.request.body as Page
 
     const res = await lifeServices.pageLifeS(data)
-    console.log(res, 'res');
-    
     ctx.body = {
       msg: '查询成功',
       data: res?.data,
