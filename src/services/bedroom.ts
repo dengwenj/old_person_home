@@ -29,6 +29,12 @@ class BedroomServices {
     const res = mysql.actionPage('bedroom', data)
     return res
   }
+
+  // 通过寝室号查找寝室（模糊查询）
+  async bedroomNumByBedroomS(num: string) {
+    const res = mysql.actionQuery('bedroom', `bedroomNum like '%${num}%'`)
+    return res
+  }
 }
 
 export default new BedroomServices()
