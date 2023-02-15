@@ -142,6 +142,20 @@ class LifeController {
       return
     }
 
+    // 该人员住的寝室人数也要减少
+    const res: any = await mysql.actionQuery('life', `id = ${id}`)
+    // 拿到该寝室
+    const res1: any = await mysql.actionQuery('bedroom', `id = ${res[0].bedroomId}`)
+    // 把该寝室人数 -1
+    await mysql.actionUpdate(
+      'bedroom',
+      {
+        lived: res1[0].lived - 1,
+        isFull: 0
+      },
+      ['id', res1[0].id]
+    )
+
     await lifeServices.deleteLifeS(id)
     ctx.body = {
       msg: '删除成功'

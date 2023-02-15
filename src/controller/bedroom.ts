@@ -97,13 +97,15 @@ class BedroomController {
 
   // 通过寝室号查找寝室
   async bedroomByNumBedroomC(ctx: ParameterizedContext, next: Next) {
-    // isLived 0 未满，1已满
-    const { bedroomNum, isLived = 1 } = ctx.request.body as { bedroomNum: string, isLived?: number }
+    // isLived 0 未满，1已满，2全部
+    const { bedroomNum, isLived = 2 } = ctx.request.body as { bedroomNum: string, isLived?: number }
     const res: any = await bedroomServices.bedroomNumByBedroomS(bedroomNum)
     let fotmatList = res
     // 返回未满的
     if (isLived === 0) {
       fotmatList = res.filter((item: any) => item.isFull === 0) 
+    } else if (isLived === 1) {
+      fotmatList = res.filter((item: any) => item.isFull === 1) 
     }
 
     ctx.body = {
