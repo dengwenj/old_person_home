@@ -4,24 +4,24 @@
 import mysql from "../utils/mysql"
 import pool from '../dataBase'
 
-import type { ICasesInfo, Page } from "../global/types" 
+import type { ILifeInfo, Page } from "../global/types" 
 
 class LifeServices {
   // 新增
-  addLifeS(data: ICasesInfo) {
-    const res = mysql.actionAdd('cases', data)
+  addLifeS(data: ILifeInfo) {
+    const res = mysql.actionAdd('life', data)
     return res
   }
 
   // 编辑
-  editLifeS(data: ICasesInfo) {
-    const res = mysql.actionUpdate('cases', data, ['id', data.id!])
+  editLifeS(data: ILifeInfo) {
+    const res = mysql.actionUpdate('life', data, ['id', data.id!])
     return res
   }
 
   // 删除
   deleteLifeS(id: number) {
-    const res = mysql.actionDelete('cases', ['id', id])
+    const res = mysql.actionDelete('life', ['id', id])
     return res
   }
 

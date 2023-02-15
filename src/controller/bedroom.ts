@@ -16,7 +16,9 @@ class BedroomController {
       disPersonNum
     } = ctx.request.body as IBedroomInfo
     // 新增时为未满，当人数达到 disPersonNum 人数是为已满
-    (ctx.request.body as IBedroomInfo).isFull = 0
+    (ctx.request.body as IBedroomInfo).isFull = 0;
+    // 新增寝室已住为 0
+    (ctx.request.body as IBedroomInfo).lived = 0
 
     // 必须有值
     const fieldsArr = [bedroomNum, disPersonNum]
@@ -44,11 +46,20 @@ class BedroomController {
     }
   }
 
-  // 编辑
+  // 编辑 
   async editBedroomC(ctx: ParameterizedContext, next: Next) {
     const { id } = ctx.request.body as IBedroomInfo
     if (!id) {
       ctx.app.emit('error', ErrorTypes.REQUIRE_HAVA_VALUE, ctx)
+      return
+    }
+
+    // 没有人住才可以编辑
+    const res: any = await mysql.actionQuery('bedroom', `id = ${id}`)
+    if (res[0].lived) {
+      ctx.body = {
+        msg: '该寝室已住不能编辑'
+      }
       return
     }
 

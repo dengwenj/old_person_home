@@ -109,4 +109,5 @@ export interface IBedroomInfo {
   bedroomNum?: string
   disPersonNum?: number
   isFull?: number
+  lived?: number
 }
