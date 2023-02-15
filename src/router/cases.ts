@@ -4,17 +4,18 @@
 import KoaRouter from 'koa-router'
 
 import { casesController } from '../controller'
+import verifyAuth from '../middleware/verifyAuth'
 
 const casesRouter = new KoaRouter({ prefix: '/cases' })
 const { addCasesC, editCasesC, deleteCasesC, pageCasesC } = casesController
 
 // 新增
-casesRouter.post('/add', addCasesC)
+casesRouter.post('/add', verifyAuth, addCasesC)
 // 编辑
-casesRouter.post('/edit', editCasesC)
+casesRouter.post('/edit', verifyAuth, editCasesC)
 // 删除
-casesRouter.post('/delete', deleteCasesC)
+casesRouter.post('/delete', verifyAuth, deleteCasesC)
 // 分页
-casesRouter.post('/page', pageCasesC)
+casesRouter.post('/page', verifyAuth, pageCasesC)
 
 export default casesRouter
