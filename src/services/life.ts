@@ -27,23 +27,23 @@ class LifeServices {
 
   // 分页
   async pageLifeS(data: Page) {
-    const { current, pageSize, oldPersonId, cases = '' } = data
+    const { current, pageSize, oldPersonId } = data
 
     let sql = ''
     if (oldPersonId !== undefined && oldPersonId !== null) {
       sql = `AND o.id = ${oldPersonId} `
     }
     
-    // 病例，老人名字允许模糊查询
+    // 老人名字允许模糊查询
     const statement = `
-      SELECT c.*, o.oldPersonName, o.gender, o.birthDate 
-			FROM cases c, old_person o 
-			WHERE c.oldPersonId = o.id 
+      SELECT l.*, o.oldPersonName, o.gender, o.birthDate, o.address, b.bedroomNum
+			FROM life l, old_person o, bedroom b
+			WHERE l.oldPersonId = o.id 
+      AND b.id = l.bedroomId
       ${sql}
-      AND c.cases like '%${cases}%' 
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
-    const statementTotal = `SELECT * FROM cases`
+    const statementTotal = `SELECT * FROM life`
     try {
       const res = await pool.execute(statement)
       const res1: any = await pool.execute(statementTotal)
