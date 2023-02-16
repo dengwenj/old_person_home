@@ -1,48 +1,48 @@
 /**
- * 病例管理
+ * 访客管理
  */
 import mysql from "../utils/mysql"
 import pool from '../dataBase'
 
-import type { ICasesInfo, Page } from "../global/types" 
+import type { IVisitorsInfo, Page } from "../global/types" 
 
-class CasesServices {
+class VisitorsServices {
   // 新增
-  addCasesS(data: ICasesInfo) {
-    const res = mysql.actionAdd('cases', data)
+  addVisitorsS(data: IVisitorsInfo) {
+    const res = mysql.actionAdd('visitors', data)
     return res
   }
 
   // 编辑
-  editCasesS(data: ICasesInfo) {
-    const res = mysql.actionUpdate('cases', data, ['id', data.id!])
+  editVisitorsS(data: IVisitorsInfo) {
+    const res = mysql.actionUpdate('visitors', data, ['id', data.id!])
     return res
   }
 
   // 删除
-  deleteCasesS(id: number) {
-    const res = mysql.actionDelete('cases', ['id', id])
+  deleteVisitorsS(id: number) {
+    const res = mysql.actionDelete('visitors', ['id', id])
     return res
   }
 
   // 分页
-  async pageCasesS(data: Page) {
-    const { current, pageSize, oldPersonId, cases } = data
+  async pageVisitorsS(data: Page) {
+    const { current, pageSize, oldPersonId, visitorsName } = data
 
     let sql = ''
     if (oldPersonId !== undefined && oldPersonId !== null && oldPersonId !== '') {
       sql = `AND o.id = ${oldPersonId} `
     }
     let sql1 = ''
-    if (cases !== undefined && cases !== null && cases !== '') {
-      sql1 = `AND c.cases like '%${cases}%'  `
+    if (visitorsName !== undefined && visitorsName !== null && visitorsName !== '') {
+      sql1 = `AND v.visitorsName like '%${visitorsName}%'  `
     }
     
     // 病例，老人名字允许模糊查询
     const statement = `
-      SELECT c.*, o.oldPersonName, o.gender, o.birthDate 
-			FROM cases c, old_person o 
-			WHERE c.oldPersonId = o.id 
+      SELECT v.*, o.oldPersonName, o.gender, o.age
+			FROM visitors v, old_person o 
+			WHERE v.oldPersonId = o.id 
       ${sql}
       ${sql1}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
@@ -50,8 +50,8 @@ class CasesServices {
     
     const statementTotal = `
       SELECT COUNT(*)
-			FROM cases c, old_person o 
-			WHERE c.oldPersonId = o.id 
+			FROM visitors v, old_person o 
+			WHERE v.oldPersonId = o.id 
       ${sql}
       ${sql1}
     `
@@ -69,4 +69,4 @@ class CasesServices {
   }
 }
 
-export default new CasesServices()
+export default new VisitorsServices()

@@ -92,6 +92,18 @@ class OldPersonServices {
         ['id', getLifeList[0].bedroomId!]
       )
     }
+
+    // 删除人员访客记录也要删除
+    const getVisitorsList = await mysqlSqlEncapsulation.actionQuery(
+      'visitors',
+      `oldPersonId = '${id}'`
+    ) as IHealthyInfo[]
+    for (const item of getVisitorsList) {
+      await mysqlSqlEncapsulation.actionDelete(
+        'visitors',
+        ['id', item.id!]
+      )
+    }
     
     const res = mysqlSqlEncapsulation.actionDelete('old_person', ['id', id])
     return res

@@ -11,6 +11,7 @@ import goOutRouter from "./goOut"
 import lifeRouter from './life'
 import bedroomRouter from './bedroom'
 import accidentRouter from "./accident"
+import visitorsRouter from "./visitors"
 
 export {
   userRouter,
@@ -21,5 +22,6 @@ export {
   goOutRouter,
   lifeRouter,
   bedroomRouter,
-  accidentRouter
+  accidentRouter,
+  visitorsRouter
 }

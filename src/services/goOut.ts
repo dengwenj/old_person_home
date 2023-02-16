@@ -30,8 +30,12 @@ class GoOutServices {
     const { current, pageSize, oldPersonId, goOutEvent = '' } = data
 
     let sql = ''
-    if (oldPersonId !== undefined && oldPersonId !== null) {
+    if (oldPersonId !== undefined && oldPersonId !== null && oldPersonId !== '') {
       sql = `AND o.id = ${oldPersonId} `
+    }
+    let sql1 = ''
+    if (goOutEvent !== undefined && goOutEvent !== null && goOutEvent !== '') {
+      sql1 = `AND g.goOutEvent like '%${goOutEvent}%' `
     }
     
     // 病例，老人名字允许模糊查询
@@ -40,7 +44,7 @@ class GoOutServices {
 			FROM go_out g, old_person o 
 			WHERE g.oldPersonId = o.id 
       ${sql}
-      AND g.goOutEvent like '%${goOutEvent}%' 
+      ${sql1} 
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
     const statementTotal = `
@@ -48,7 +52,7 @@ class GoOutServices {
 			FROM go_out g, old_person o 
 			WHERE g.oldPersonId = o.id 
       ${sql}
-      AND g.goOutEvent like '%${goOutEvent}%' 
+      ${sql1} 
     `
     try {
       const res = await pool.execute(statement)

@@ -11,6 +11,7 @@ import goOutController from './goOut'
 import lifeController from './life'
 import bedroomController from './bedroom'
 import accidentController from './accident'
+import visitorsController from './visitors'
 
 export {
   userController,
@@ -21,5 +22,6 @@ export {
   goOutController,
   lifeController,
   bedroomController,
-  accidentController
+  accidentController,
+  visitorsController
 }

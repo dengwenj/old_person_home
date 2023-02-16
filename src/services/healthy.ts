@@ -31,10 +31,10 @@ class HealthyServices {
     const { current, pageSize, oldPersonId, PETime = '', gender } = data
     let sql = ''
     let sql1 = ''
-    if (gender !== undefined && gender !== null) {
+    if (gender !== undefined && gender !== null && gender !== '') {
       sql = `AND o.gender like '%${gender}%'`
     } 
-    if (gender !== undefined && gender !== null) {
+    if (oldPersonId !== undefined && oldPersonId !== null && oldPersonId !== '') {
       sql1 = `AND o.id = ${oldPersonId} `
     }
     
@@ -44,7 +44,6 @@ class HealthyServices {
 			FROM healthy h, old_person o 
 			WHERE h.oldPersonId = o.id 
       ${sql1}
-      AND h.PETime like '%${PETime}%' 
       ${sql}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
@@ -53,7 +52,6 @@ class HealthyServices {
 			FROM healthy h, old_person o 
 			WHERE h.oldPersonId = o.id 
       ${sql1}
-      AND h.PETime like '%${PETime}%' 
       ${sql}
     `
     const res = await pool.execute(statement)

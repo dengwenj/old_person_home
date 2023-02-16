@@ -120,3 +120,14 @@ export interface IAccidentInfo {
   reason?: string
   loss?: string
 }
+
+// 访客管理
+export interface IVisitorsInfo {
+  id?: number
+  oldPersonId?: number
+  visitorsName?: string
+  visitorsPhone?: string
+  visitorsEvent?: string
+  relation?: string
+  accessTime?: string
+}

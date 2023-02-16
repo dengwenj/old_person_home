@@ -30,12 +30,12 @@ class LifeServices {
     const { current, pageSize, oldPersonId, bedroomId } = data
 
     let sql = ''
-    if (oldPersonId !== undefined && oldPersonId !== null) {
-      sql += `AND o.id = ${oldPersonId} `
+    if (oldPersonId !== undefined && oldPersonId !== null && oldPersonId !== '') {
+      sql = `AND o.id = ${oldPersonId} `
     }
-
-    if (bedroomId !== undefined && bedroomId !== null) {
-      sql += `AND l.bedroomId = ${bedroomId} `
+    let sql2 = ''
+    if (bedroomId !== undefined && bedroomId !== null && bedroomId !== '') {
+      sql2 = `AND l.bedroomId = ${bedroomId} `
     }
     
     // 老人名字允许模糊查询
@@ -45,6 +45,7 @@ class LifeServices {
 			WHERE l.oldPersonId = o.id 
       AND b.id = l.bedroomId
       ${sql}
+      ${sql2}
       LIMIT ${((current || 1) - 1) * (pageSize || 10)},${pageSize || 10}
     `
     const statementTotal = `
@@ -53,6 +54,7 @@ class LifeServices {
 			WHERE l.oldPersonId = o.id 
       AND b.id = l.bedroomId
       ${sql}
+      ${sql2}
     `
     try {
       const res = await pool.execute(statement)

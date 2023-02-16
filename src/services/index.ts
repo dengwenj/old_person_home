@@ -11,6 +11,7 @@ import goOutServices from './goOut'
 import lifeServices from './life'
 import bedroomServices from './bedroom'
 import accidentServices from './accident'
+import visitorsServices from './visitors'
 
 export {
   userServices,
@@ -21,5 +22,6 @@ export {
   goOutServices,
   lifeServices,
   bedroomServices,
-  accidentServices
+  accidentServices,
+  visitorsServices
 }
