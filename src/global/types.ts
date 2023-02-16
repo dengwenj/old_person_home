@@ -111,3 +111,12 @@ export interface IBedroomInfo {
   isFull?: number
   lived?: number
 }
+
+// 事故管理
+export interface IAccidentInfo {
+  id?: number
+  accident?: string
+  accidentTime?: string
+  reason?: string
+  loss?: string
+}
