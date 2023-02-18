@@ -110,6 +110,7 @@ export interface IBedroomInfo {
   disPersonNum?: number
   isFull?: number
   lived?: number
+  price?: number
 }
 
 // 事故管理
@@ -130,4 +131,15 @@ export interface IVisitorsInfo {
   visitorsEvent?: string
   relation?: string
   accessTime?: string
+}
+
+// 护工管理
+export interface ICareWorkerInfo {
+  id?: number
+  careWorkerName?: string
+  careWorkerAge?: number
+  carWorkerPrice?: number
+  seniority?: number
+  isHealthy?: number
+  careWorkerCases?: string
 }

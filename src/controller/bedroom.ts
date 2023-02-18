@@ -13,7 +13,8 @@ class BedroomController {
   async addBedroomC(ctx: ParameterizedContext, next: Next) {
     const {
       bedroomNum,
-      disPersonNum
+      disPersonNum,
+      price
     } = ctx.request.body as IBedroomInfo
     // 新增时为未满，当人数达到 disPersonNum 人数是为已满
     (ctx.request.body as IBedroomInfo).isFull = 0;
@@ -21,7 +22,7 @@ class BedroomController {
     (ctx.request.body as IBedroomInfo).lived = 0
 
     // 必须有值
-    const fieldsArr = [bedroomNum, disPersonNum]
+    const fieldsArr = [bedroomNum, disPersonNum, price]
     for (const field of fieldsArr) {
       if (field === '' || field === undefined || field === null) {
         ctx.app.emit('error', ErrorTypes.REQUIRE_HAVA_VALUE, ctx)

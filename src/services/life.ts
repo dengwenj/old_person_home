@@ -40,7 +40,7 @@ class LifeServices {
     
     // 老人名字允许模糊查询
     const statement = `
-      SELECT l.*, o.oldPersonName, o.gender, o.birthDate, o.address, b.bedroomNum
+      SELECT l.*, o.oldPersonName, o.gender, o.birthDate, o.address, b.bedroomNum, b.price
 			FROM life l, old_person o, bedroom b
 			WHERE l.oldPersonId = o.id 
       AND b.id = l.bedroomId

@@ -12,6 +12,7 @@ import lifeController from './life'
 import bedroomController from './bedroom'
 import accidentController from './accident'
 import visitorsController from './visitors'
+import careWorkerController from './careWorker'
 
 export {
   userController,
@@ -23,5 +24,6 @@ export {
   lifeController,
   bedroomController,
   accidentController,
-  visitorsController
+  visitorsController,
+  careWorkerController
 }
