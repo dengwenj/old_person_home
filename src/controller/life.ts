@@ -30,7 +30,8 @@ class LifeController {
     if (res.length) {
       ctx.body = {
         msg: '该老人已有房间',
-        data: res
+        data: res,
+        code: 1
       }
       return
     }
@@ -41,7 +42,8 @@ class LifeController {
     // isFull 0 未满 1 已满
     if (res1[0].isFull === 1) {
       ctx.body = {
-        msg: '该寝室人数已满'
+        msg: '该寝室人数已满',
+        code: 1
       }
       return
     }
@@ -89,7 +91,8 @@ class LifeController {
     if (res[0].isFull === 1) {
       ctx.body = {
         msg: '该寝室人数已满',
-        data: res
+        data: res,
+        code: 1
       }
       return
     }

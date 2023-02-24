@@ -37,6 +37,7 @@ class BedroomController {
       ctx.body = {
         msg: '该寝室已存在',
         data: res,
+        code: 1
       }
       return
     }
@@ -59,7 +60,8 @@ class BedroomController {
     const res: any = await mysql.actionQuery('bedroom', `id = ${id}`)
     if (res[0].lived) {
       ctx.body = {
-        msg: '该寝室已住不能编辑'
+        msg: '该寝室已住不能编辑',
+        code: 1
       }
       return
     }
@@ -99,7 +101,7 @@ class BedroomController {
   // 通过寝室号查找寝室
   async bedroomByNumBedroomC(ctx: ParameterizedContext, next: Next) {
     // isLived 0 未满，1已满，2全部
-    const { bedroomNum, isLived = 2 } = ctx.request.body as { bedroomNum: string, isLived?: number }
+    const { bedroomNum, isLived = 2 } = ctx.request.body as { bedroomNum: string, isLived?: number }    
     const res: any = await bedroomServices.bedroomNumByBedroomS(bedroomNum)
     let fotmatList = res
     // 返回未满的
