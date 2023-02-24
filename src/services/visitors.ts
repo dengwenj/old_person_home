@@ -40,7 +40,7 @@ class VisitorsServices {
     
     // 病例，老人名字允许模糊查询
     const statement = `
-      SELECT v.*, o.oldPersonName, o.gender, o.age
+      SELECT v.*, o.oldPersonName, o.gender, o.birthDate
 			FROM visitors v, old_person o 
 			WHERE v.oldPersonId = o.id 
       ${sql}
