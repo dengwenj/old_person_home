@@ -40,7 +40,8 @@ class UserController {
       data: {
         id: res[0].id,
         role: res[0].role,
-        username
+        username,
+        createTime: res[0].createTime
       },
       token
     }
