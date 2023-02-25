@@ -102,6 +102,79 @@ class OldPersonController {
       data
     }
   }
+
+  // 通过年龄段获取人数
+  async getPeopleByAgeC(ctx: ParameterizedContext, next: Next) {
+    const res = await oldPersonServices.getPeopleByAgeS() as Record<string, any>[]
+    console.log(res);
+    const birthYearList = res.map((item) => {
+      return item.birthDate.split('-')[0]
+    })
+    const time = Date.now()
+    const date = new Date(time)
+    // 当前年
+    const year = date.getFullYear()
+
+    // 当前年减去生的年份就是多少岁
+    const ageList = []
+    for (const item of birthYearList) {
+      const age = year - item
+      ageList.push(age)
+    }
+    
+    const objList = [
+      {
+        allPeople: 0,
+        type: '60-65岁'
+      },
+      {
+        allPeople: 0,
+        type: '66-70岁'
+      },
+      {
+        allPeople: 0,
+        type: '71-75岁'
+      },
+      {
+        allPeople: 0,
+        type: '76-80岁'
+      },
+      {
+        allPeople: 0,
+        type: '81-85岁'
+      },
+      {
+        allPeople: 0,
+        type: '其他岁数'
+      },
+    ]
+    const map = {
+      sixtySixtyFive: [60, 61, 62, 63, 64, 65],
+      sixtySixSeventy: [66, 67, 68, 69, 70],
+      seventyOneSeventyFive: [71, 72, 73, 74, 75],
+      seventySixEighty: [76, 77, 78, 79, 80],
+      eightyOneEightyFive: [81, 82, 83, 84, 85]
+    }
+    for (const item of ageList) {
+      if (map.sixtySixtyFive.includes(item)) {
+        objList[0].allPeople += 1
+      } else if (map.sixtySixSeventy.includes(item)) {
+        objList[1].allPeople += 1
+      } else if (map.seventyOneSeventyFive.includes(item)) {
+        objList[2].allPeople += 1
+      } else if (map.seventySixEighty.includes(item)) {
+        objList[3].allPeople += 1
+      } else if (map.eightyOneEightyFive.includes(item)) {
+        objList[4].allPeople += 1
+      } else {
+        objList[5].allPeople += 1
+      }
+    }
+
+    ctx.body = {
+      data: objList
+    }
+  }
 }
 
 

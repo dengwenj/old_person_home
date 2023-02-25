@@ -13,7 +13,8 @@ const {
   updateOldPersonC, 
   deleteOldPersonC,
   pageOldPersonC,
-  getOldpersonByNameC
+  getOldpersonByNameC,
+  getPeopleByAgeC
 } = oldPersonController
 const { addOldPersonM } = oldPersonMiddleware
 
@@ -27,6 +28,8 @@ oldPersonRouter.post('/delete', verifyAuth, deleteOldPersonC)
 oldPersonRouter.post('/page', verifyAuth, pageOldPersonC)
 // 通过查询姓名拿到人员
 oldPersonRouter.post('/getOldpersonByName', verifyAuth, getOldpersonByNameC)
+// 通过年龄段获取人数
+oldPersonRouter.post('/getPeopleByAge', verifyAuth, getPeopleByAgeC)
 
 export default oldPersonRouter
 

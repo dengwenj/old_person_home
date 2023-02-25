@@ -123,6 +123,12 @@ class OldPersonServices {
     )
     return res
   }
+
+  // 通过年龄段获取人数
+  getPeopleByAgeS() {
+    const res = mysqlSqlEncapsulation.actionQuery('old_person')
+    return res
+  }
 }
 
 export default new OldPersonServices()
