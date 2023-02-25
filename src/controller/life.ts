@@ -176,6 +176,37 @@ class LifeController {
       total: res?.total
     }
   }
+
+  // 获取全部人员
+  async getAllC(ctx: ParameterizedContext, next: Next) {
+    const res = await lifeServices.getAllS() as Record<string, any>[];
+    const res1 = res.map((item) => {
+      return {
+        ...item,
+        month: item.checkInTime.split('-')[1]
+      }
+    })
+    // 弄成 12 月
+    const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    const monthAndPeopleNum = []
+    for (const item of month) {
+      let peopleNum = 0
+      res1.forEach((itex) => {
+        // 月份相等就+1
+        if (itex.month === item) {
+          peopleNum++
+        }
+      })
+      monthAndPeopleNum.push({
+        month: `${item[0] === '0' ? item[1] : item}月`,
+        peopleNum
+      })
+    }
+
+    ctx.body = {
+      data: monthAndPeopleNum
+    }
+  }
 }
 
 export default new LifeController()

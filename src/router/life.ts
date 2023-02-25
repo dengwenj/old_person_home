@@ -7,7 +7,7 @@ import { lifeController } from '../controller'
 import verifyAuth from '../middleware/verifyAuth'
 
 const lifeRouter = new KoaRouter({ prefix: '/life' })
-const { addLifeC, editLifeC, deleteLifeC, pageLifeC } = lifeController
+const { addLifeC, editLifeC, deleteLifeC, pageLifeC, getAllC } = lifeController
 
 // 新增
 lifeRouter.post('/add', verifyAuth, addLifeC)
@@ -17,5 +17,7 @@ lifeRouter.post('/edit', verifyAuth, editLifeC)
 lifeRouter.post('/delete', verifyAuth, deleteLifeC)
 // 分页
 lifeRouter.post('/page', verifyAuth, pageLifeC)
+// 获取全部入住人员
+lifeRouter.post('/getAll', verifyAuth, getAllC)
 
 export default lifeRouter

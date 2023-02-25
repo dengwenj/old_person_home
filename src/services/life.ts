@@ -68,6 +68,12 @@ class LifeServices {
       console.log(error)
     }
   }
+
+  // 获取全部入住人员
+  async getAllS() {
+    const res = mysql.actionQuery('life');
+    return res
+  }
 }
 
 export default new LifeServices()
