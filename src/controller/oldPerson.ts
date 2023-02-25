@@ -10,7 +10,6 @@ class OldPersonController {
     const {
       oldPersonName,
       gender,
-      age,
       birthDate,
       phone,
       address,
@@ -23,6 +22,12 @@ class OldPersonController {
     } = ctx.request.body as IOldPersonInfo
 
     const createTime = Date.now()
+    const date = new Date(createTime)
+    // 当前年
+    const year = date.getFullYear()
+    const bYear = Number(birthDate!.split('-')[0])
+    // 获取年龄
+    const age = year - bYear
     await oldPersonServices.addOldPersonS({
       oldPersonName,
       gender,
@@ -53,8 +58,15 @@ class OldPersonController {
     }
 
     const updateTime = Date.now()
+    const date = new Date(updateTime)
+    // 当前年
+    const year = date.getFullYear()
+    const bYear = Number(oldPersonInfo.birthDate!.split('-')[0])
+    // 获取年龄
+    const age = year - bYear
     await oldPersonServices.updateOldPersonS({
       ...oldPersonInfo,
+      age,
       updateTime: String(updateTime)
     })
     ctx.body = {
@@ -106,7 +118,6 @@ class OldPersonController {
   // 通过年龄段获取人数
   async getPeopleByAgeC(ctx: ParameterizedContext, next: Next) {
     const res = await oldPersonServices.getPeopleByAgeS() as Record<string, any>[]
-    console.log(res);
     const birthYearList = res.map((item) => {
       return item.birthDate.split('-')[0]
     })
