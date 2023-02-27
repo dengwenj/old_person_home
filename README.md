@@ -15,7 +15,7 @@ MYSQL_USER=root
 MYSQL_PASSWORD=你的数据库密码
 ```
 
-* src 文件夹下 app 文件下 keys 文件夹(src -> app -> keys) 添加私钥
+### src 文件夹下 app 文件下 keys 文件夹(src -> app -> keys) 添加私钥
 
 ```ts
 进入到 keys 文件下进行如下操作：
@@ -29,3 +29,4 @@ genrsa -out private.key 1024
 rsa -in private.key -pubout -out public.key
 会生成`private.key` 和 `public.key` 文件
 ```
+### 前端地址：https://github.com/dengwenj/old_person_home_web
