@@ -13,7 +13,8 @@ const {
   updateUser, 
   deleteUser, 
   pageUser,
-  loginUser
+  loginUser,
+  resetUser
 } = userController
 const { 
   verifyUser,
@@ -30,5 +31,7 @@ userRouter.post('/update', verifyAuth, updateUser)
 userRouter.post('/delete', verifyAuth, deleteUser)
 // 分页查询
 userRouter.post('/page', verifyAuth, pageUser)
+// 重置密码
+userRouter.post('/reset', verifyAuth, resetUser)
 
 export default userRouter

@@ -58,6 +58,12 @@ class UserServices {
     const res = actionPage('user', data)
     return res
   }
+
+  // 重置密码
+  resetUser(id: number, newPassword: string) {
+    const res = mysqlSqlEncapsulation.actionUpdate('user', { password: newPassword }, ['id', id])
+    return res
+  }
 }
 
 export default new UserServices

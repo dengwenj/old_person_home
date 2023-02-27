@@ -8,7 +8,7 @@ import { privateContent } from '../config/keysContent'
 import type { Next, ParameterizedContext } from 'koa'
 import type { ILogin, IUserInfo, Page } from '../global/types'
 
-const { create, updateUser, deleteUser, pageUser } = userServices
+const { create, updateUser, deleteUser, pageUser, resetUser } = userServices
 
 class UserController {
   // 登录
@@ -94,6 +94,17 @@ class UserController {
       msg: '查询成功',
       data: res?.data,
       total: res?.total
+    }
+  }
+
+  // 重置密码
+  async resetUser(ctx: ParameterizedContext, next: Next) {
+    const { id } = ctx.userInfo
+    const finallyPassword = md5password('000000');
+    const res = await resetUser(id, finallyPassword);
+
+    ctx.body = {
+      msg: '重置密码成功'
     }
   }
 }
