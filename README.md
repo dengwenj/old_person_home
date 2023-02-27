@@ -15,7 +15,7 @@ MYSQL_USER=root
 MYSQL_PASSWORD=你的数据库密码
 ```
 
-### src 文件夹下 app 文件下 keys 文件夹(src -> app -> keys) 添加私钥
+### src 文件夹下 app 文件下新增 keys 文件夹(src -> app -> keys) 添加私钥
 
 ```ts
 进入到 keys 文件下进行如下操作：
