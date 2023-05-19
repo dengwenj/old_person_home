@@ -1,6 +1,9 @@
 export const nameAsterisk = (name: string) => {
-  const n = name.substring(1, name.length > 2 ? name.length - 1 : name.length)
+  if (name.length <= 1) {
+    return name
+  }
 
+  const n = name.substring(1, name.length > 2 ? name.length - 1 : name.length)
   let re = ""
   for (let i = 0; i < n.length; i++) {
     re += "*"
