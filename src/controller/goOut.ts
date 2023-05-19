@@ -6,6 +6,7 @@ import ErrorTypes from '../global/constants/error_types'
 
 import type { ParameterizedContext, Next } from 'koa'
 import type { IGoOutInfo, Page } from '../global/types'
+import { nameAsterisk, phoneAsterisk } from '../utils/tool'
 
 class GoOutController {
   // 新增
@@ -64,9 +65,17 @@ class GoOutController {
     const data = ctx.request.body as Page
 
     const res = await goOutServices.pageGoOutS(data)
+    const data1 = (res?.data as Record<string, any>[]).map((item) => {
+      return {
+        ...item,
+        oldPersonName: nameAsterisk(item.oldPersonName),
+        familyMemberPhone: phoneAsterisk(item.familyMemberPhone),
+        phone: phoneAsterisk(item.phone),
+      }
+    })
     ctx.body = {
       msg: '查询成功',
-      data: res?.data,
+      data: data1,
       total: res?.total
     }
   }

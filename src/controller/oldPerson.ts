@@ -1,5 +1,6 @@
 import { oldPersonServices } from '../services'
 import ErrorTypes from '../global/constants/error_types'
+import { nameAsterisk, phoneAsterisk } from '../utils/tool'
 
 import type { Next, ParameterizedContext } from 'koa'
 import type { IOldPersonInfo, Page } from '../global/types'
@@ -92,9 +93,25 @@ class OldPersonController {
   async pageOldPersonC(ctx: ParameterizedContext, next: Next) {
     const data = ctx.request.body as Page
     const res = await oldPersonServices.pageOldPersonS(data)
+    
+    const data1 = (res?.data as Record<string, any>[]).map((item) => {
+      const name = item.oldPersonName;
+      const phone = item.phone;
+      const phone1 = item.familyMemberPhone;
+      const name1 = item.familyMember;
+      
+      return {
+        ...item,
+        oldPersonName: nameAsterisk(name),
+        phone: phoneAsterisk(phone),
+        familyMemberPhone: phoneAsterisk(phone1),
+        familyMember: nameAsterisk(name1)
+      }
+    })
+    
     ctx.body = {
       msg: '查询成功',
-      data: res?.data,
+      data: data1,
       total: res?.total
     }
   }

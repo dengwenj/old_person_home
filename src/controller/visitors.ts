@@ -6,6 +6,7 @@ import ErrorTypes from '../global/constants/error_types'
 
 import type { ParameterizedContext, Next } from 'koa'
 import type { IVisitorsInfo, Page } from '../global/types'
+import { nameAsterisk, phoneAsterisk } from '../utils/tool'
 
 class VisitorsController {
   // 新增
@@ -66,9 +67,17 @@ class VisitorsController {
     const data = ctx.request.body as Page
 
     const res = await visitorsServices.pageVisitorsS(data)
+    const data1 = (res?.data as Record<string, any>[]).map((item) => {
+      return {
+        ...item,
+        oldPersonName: nameAsterisk(item.oldPersonName),
+        visitorsPhone: phoneAsterisk(item.visitorsPhone),
+        visitorsName: nameAsterisk(item.visitorsName)
+      }
+    })
     ctx.body = {
       msg: '查询成功',
-      data: res?.data,
+      data: data1,
       total: res?.total
     }
   }

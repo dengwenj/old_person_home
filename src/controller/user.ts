@@ -54,7 +54,6 @@ class UserController {
     // 创建时间
     const createTime = Date.now()
     user.createTime = String(createTime)
-    console.log(user, 'user');
     
     const res = await create(user)
     // 用户名存在(唯一性)

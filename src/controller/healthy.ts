@@ -3,6 +3,7 @@ import ErrorTypes from '../global/constants/error_types'
 
 import type { Next, ParameterizedContext } from "koa"
 import type { IHealthyInfo, Page } from "../global/types"
+import { nameAsterisk } from '../utils/tool'
 
 class HealthyController {
   // 健康档案新增
@@ -78,9 +79,15 @@ class HealthyController {
     const data = ctx.request.body as Page
 
     const res = await healthyServices.pageHealthyS(data)
+    const data1 = (res?.data as Record<string, any>[]).map((item) => {
+      return {
+        ...item,
+        oldPersonName: nameAsterisk(item.oldPersonName)
+      }
+    })
     ctx.body = {
       msg: '查询成功',
-      data: res?.data,
+      data: data1,
       total: res?.total
     }
   }

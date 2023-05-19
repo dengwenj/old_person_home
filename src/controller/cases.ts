@@ -6,6 +6,7 @@ import ErrorTypes from '../global/constants/error_types'
 
 import type { ParameterizedContext, Next } from 'koa'
 import type { ICasesInfo, Page } from '../global/types'
+import { nameAsterisk } from '../utils/tool'
 
 class CasesController {
   // 新增
@@ -63,9 +64,15 @@ class CasesController {
     const data = ctx.request.body as Page
 
     const res = await casesServices.pageCasesS(data)
+    const data1 = (res?.data as Record<string, any>[]).map((item) => {
+      return {
+        ...item,
+        oldPersonName: nameAsterisk(item.oldPersonName)
+      }
+    })
     ctx.body = {
       msg: '查询成功',
-      data: res?.data,
+      data: data1,
       total: res?.total
     }
   }
