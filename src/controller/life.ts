@@ -87,49 +87,51 @@ class LifeController {
       return
     }
 
-    // 判断换入的这个寝室人满没
-    const res: any = await mysql.actionQuery('bedroom', `id = ${bedroomId}`)
-    if (res[0].isFull === 1) {
-      ctx.body = {
-        msg: '该寝室人数已满',
-        data: res,
-        code: 1
+    if (bedroomId) {
+      // 判断换入的这个寝室人满没
+      const res: any = await mysql.actionQuery('bedroom', `id = ${bedroomId}`)
+      if (res[0].isFull === 1) {
+        ctx.body = {
+          msg: '该寝室人数已满',
+          data: res,
+          code: 1
+        }
+        return
       }
-      return
-    }
 
-    // 当前的寝室人数 -1 和 isFull 变为 0，换入的这寝室人数 + 1
-    // 拿到之前的寝室先拿到寝室 id
-    const res1: any = await mysql.actionQuery('life', `id = ${id}`)
-    // 拿到之前的寝室
-    const res2: any = await mysql.actionQuery('bedroom', `id = ${res1[0].bedroomId}`)
-    await mysql.actionUpdate(
-      'bedroom',
-      {
-        lived: res2[0].lived - 1,
-        isFull: 0
-      },
-      ['id', res2[0].id]
-    )
-    // 换入的这寝室人数 + 1
-    await mysql.actionUpdate(
-      'bedroom',
-      {
-        lived: res[0].lived + 1
-      },
-      ['id', bedroomId!]
-    )
-    // 再看已住人数和分配人数是否一样，isFull 是否改变
-    const res3: any = await mysql.actionQuery('bedroom', `id = ${bedroomId!}`)
-    if (res3[0].disPersonNum === res3[0].lived) {
-      // 把 isFull 变为 1，为已满
+      // 当前的寝室人数 -1 和 isFull 变为 0，换入的这寝室人数 + 1
+      // 拿到之前的寝室先拿到寝室 id
+      const res1: any = await mysql.actionQuery('life', `id = ${id}`)
+      // 拿到之前的寝室
+      const res2: any = await mysql.actionQuery('bedroom', `id = ${res1[0].bedroomId}`)
       await mysql.actionUpdate(
-        'bedroom', 
+        'bedroom',
         {
-          isFull: 1
+          lived: res2[0].lived - 1,
+          isFull: 0
+        },
+        ['id', res2[0].id]
+      )
+      // 换入的这寝室人数 + 1
+      await mysql.actionUpdate(
+        'bedroom',
+        {
+          lived: res[0].lived + 1
         },
         ['id', bedroomId!]
       )
+      // 再看已住人数和分配人数是否一样，isFull 是否改变
+      const res3: any = await mysql.actionQuery('bedroom', `id = ${bedroomId!}`)
+      if (res3[0].disPersonNum === res3[0].lived) {
+        // 把 isFull 变为 1，为已满
+        await mysql.actionUpdate(
+          'bedroom', 
+          {
+            isFull: 1
+          },
+          ['id', bedroomId!]
+        )
+      }
     }
 
     await lifeServices.editLifeS(ctx.request.body as ILifeInfo)
