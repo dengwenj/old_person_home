@@ -29,4 +29,5 @@ genrsa -out private.key 2048
 rsa -in private.key -pubout -out public.key
 会生成`private.key` 和 `public.key` 文件
 ```
+### 用户名：admin 密码：000000
 ### 前端地址：https://github.com/dengwenj/old_person_home_web
