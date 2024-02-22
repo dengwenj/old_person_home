@@ -20,12 +20,12 @@ MYSQL_PASSWORD=你的数据库密码
 ```ts
 进入到 keys 文件下进行如下操作：
 mac 系统直接终端输入 openssl。然后输入：
-genrsa -out private.key 1024
+genrsa -out private.key 2048
 rsa -in private.key -pubout -out public.key
 会生成`private.key` 和 `public.key` 文件
 
 windows 系统打开 git bash，输入 openssl。然后输入：
-genrsa -out private.key 1024
+genrsa -out private.key 2048
 rsa -in private.key -pubout -out public.key
 会生成`private.key` 和 `public.key` 文件
 ```
